@@ -1,3 +1,4 @@
-#Readme
+# Readme
 [Deep learning webiste](www.deeplearningbook.org)
-"Examples from Deep Learning by Goodfellow, et al" 
+
+Examples I have created inspired from Deep Learning by Goodfellow, et al
