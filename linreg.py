@@ -32,10 +32,11 @@ def plots():
     plt.show()
     # plt.savefig('figures/fig5.1.png')
 """MAIN"""
-size = 50
+size = 100
 dim=1
+jitter = 0.3 #Spread parameter
 x = np.array([np.concatenate([r,[1]]) for r in np.random.rand(size,dim)])
-y = x[:,0]+(np.random.rand(size)*.3) #jittery but linearish
+y = x[:,0]+(np.random.rand(size)*jitter) #jittery but linearish
 
 ##Calculate best w that minimizes MSE
 w = np.dot(
@@ -46,10 +47,11 @@ w = np.dot(
                         y)
 y_hat = np.dot(x,w)#Dot product
 
-#Explore MSE landscape for w1
-ws = np.array([[x_,w[1]] for x_ in np.linspace(0,w[0]+1,20)]) #From 0 to a bit past the solution, keeping y-int constant
-y_hats = np.array([np.dot(x,w_) for w_ in ws]) #Predicted y for each w
-MSEs = [MSE(y_,y) for y_ in y_hats] #MSE for all ws
-MSE_ = MSE(y_hat,y) #For the best w, calculated in the prev step
+#Explore MSE landscape for w1 for 1 feature case
+if dim == 1:
+    ws = np.array([[x_,w[1]] for x_ in np.linspace(0,w[0]+1,20)]) #From 0 to a bit past the solution, keeping y-int constant
+    y_hats = np.array([np.dot(x,w_) for w_ in ws]) #Predicted y for each w
+    MSEs = [MSE(y_,y) for y_ in y_hats] #MSE for all ws
+    MSE_ = MSE(y_hat,y) #For the best w, calculated in the prev step
 
 plots()
