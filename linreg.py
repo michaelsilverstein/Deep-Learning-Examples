@@ -13,19 +13,21 @@ import itertools
 matplotlib.rc('text', usetex=True)
 matplotlib.rcParams['text.latex.preamble']=[r"\usepackage{amsmath}"] #For Latex later on
 
-def datagen(dim,size):
+def datagen(dim,size,noise=0.3):
     #Input:
     #|dim = number of features
     #|size = sample size
+    #|noise = jitter parameter
     #Output:
     #x: features in dimensions `dim` of size `size`
     #y: observations of size `size
-    jitter = 0.3 #Spread parameter of noise
+    jitter = noise #Spread parameter of noise
     seed = np.array([np.random.rand(size)]*dim) #Linear relationship in dim dimensions
     noise = np.random.rand(dim,size) * jitter
     x = np.vstack([seed+noise,np.ones(size)]).T #append column of ones for bias (y-intercept)
     y = seed[0] #Vector of observations
     return x,y
+
 def MSE(y_,y,size):
     #Compute MSE for a vector of predictions y_ and observations y
     return 1./size*np.power(np.linalg.norm(y_-y),2)
